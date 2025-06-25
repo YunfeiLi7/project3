@@ -23,8 +23,8 @@ StartGame::StartGame(QWidget *parent) : QWidget(parent), background(":/images/pi
     connect(Quit,&QPushButton::clicked,this,&StartGame::quit);
 }
 void StartGame::start(){
-    this->hide();
-    emit gameStartRequested();
+    // this->hide();
+    // emit gameStartRequested();
 }
 void StartGame::quit(){
     QApplication::quit();
