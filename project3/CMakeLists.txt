@@ -33,6 +33,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
             Path.cpp
             map.h
             map.cpp
+            GameEngine.h
+            GameWindow.cpp
+            GameWindow.h
+            GameEngine.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET project3 APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
