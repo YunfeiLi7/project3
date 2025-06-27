@@ -32,24 +32,35 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event) override;//鼠标释放
     void resizeEvent(QResizeEvent *event) override;//重构
 
-private:
-    // 指向游戏引擎的指针
-    GameEngine* m_gameEngine;
-
-    // 绘制地图所需贴图
+    private:
+    GameEngine* m_gameEngine;//游戏引擎
     QPixmap grassPixmap;
     QPixmap stonePixmap;
     QPixmap woodPixmap;
     QPixmap backgroundPixmap;
-
-    // 地图格子的尺寸（cell）
     const int TILE_SIZE = 40;
 
-    // 根据格子类型获取对应贴图
     QPixmap getPixmapForTileType(int tileType) const;
-
-    // 将屏幕坐标转换为地图网格坐标
     QPoint screenToGrid(const QPoint& screenPosInMapArea) const;
+
+
+    void initUICards(); // 初始化卡牌数据
+    int getCardIndexAt(const QPoint& windowPos) const;
+
+    QVector<Tower::CardInfo> m_uiCards; // 存储卡牌信息
+    QRect m_paletteRect;                // 卡牌区域
+    int m_paletteHeight;                // 卡牌区域高度
+
+    // 拖拽状态变量
+    bool m_isDragging;
+    Tower::Type m_dragType;
+    QPixmap m_dragImage;
+    QPoint m_dragMousePos;
+
+    // 卡牌UI常量
+    const int PALETTE_CARD_W = 60;
+    const int PALETTE_CARD_H = 80;
+    const int PALETTE_PAD = 5;
 };
 
 #endif // GAMEWINDOW_H

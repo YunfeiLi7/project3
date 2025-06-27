@@ -9,10 +9,10 @@ Tower::Tower(int row, int col) : m_row(row), m_col(col) {}
 
 // 近战塔构造函数，加载自己的图像
 MeleeTower::MeleeTower(int row, int col) : Tower(row, col) {
-    m_image.load(":/images/light.png")
+    m_image.load(":/images/light.png");
 }
 
 // 远程塔构造函数，加载自己的图像
 RangedTower::RangedTower(int row, int col) : Tower(row, col) {
-    !m_image.load(":/images/bottle.png")
+    !m_image.load(":/images/bottle.png");
 }
