@@ -79,7 +79,13 @@ void GameWindow::paintEvent(QPaintEvent *event)
         QRect cardDrawRect(currentX, m_paletteRect.top() + PALETTE_PAD, PALETTE_CARD_W, PALETTE_CARD_H);
 
         painter.drawPixmap(cardDrawRect, card.cardImg); // 绘制卡牌图
-
+        // 设置文字属性
+        painter.setPen(Qt::yellow);
+        painter.setFont(QFont("Arial", 10, QFont::Bold));
+        QRect textRect = cardDrawRect;
+        textRect.setTop(cardDrawRect.top() + cardDrawRect.height() * 0.6); // 从卡片高度60%的位置开始
+        // 绘制价格，居中对齐
+        painter.drawText(textRect, Qt::AlignCenter, QString::number(card.cost));
         // 如果钱不够，给卡牌蒙上一层灰色
         if (m_gameEngine && m_gameEngine->getPlayerMoney() < card.cost) {
             painter.fillRect(cardDrawRect, QColor(0, 0, 0, 120));
@@ -96,7 +102,7 @@ void GameWindow::paintEvent(QPaintEvent *event)
     }
 
 
-    // 2. 绘制地图（与上一版基本相同）
+    // 2. 绘制地图
     int mapOffsetY = m_paletteHeight;
     const Map& map = m_gameEngine->getMap();
     for (int r = 0; r < map.getRows(); ++r) {
@@ -129,7 +135,7 @@ void GameWindow::paintEvent(QPaintEvent *event)
         painter.drawPixmap(drawX, drawY, scaledTowerImg);
     }
 
-    // 4. 绘制正在拖拽的塔的图像（跟随鼠标）
+    // 4. 绘制正在拖拽的塔的图像
     if (m_isDragging && !m_dragImage.isNull()) {
         painter.setOpacity(0.75);
         QPixmap scaledDragImg = m_dragImage.scaled(TILE_SIZE, TILE_SIZE, Qt::KeepAspectRatio);

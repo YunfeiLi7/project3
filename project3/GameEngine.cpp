@@ -7,6 +7,7 @@
 GameEngine::GameEngine(QObject *parent)
     : QObject(parent), m_gameOver(false), m_isPaused(false)
 {
+    m_playerMoney = 250;
     // 连接计时器的 timeout 信号到 gameLoop 槽函数，用来不停更新游戏
     connect(&m_gameTimer, &QTimer::timeout, this, &GameEngine::gameLoop);
     // 设置游戏循环的间隔

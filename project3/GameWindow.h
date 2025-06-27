@@ -21,11 +21,11 @@ public:
     explicit GameWindow(QWidget *parent = nullptr);
     ~GameWindow();
 
-    // 设置游戏引擎的接口保持不变
+    // 设置游戏引擎
     void setGameEngine(GameEngine* engine);
 
 protected:
-    // 事件处理函数的声明保持不变，但实现会被简化
+    // 事件处理函数
     void paintEvent(QPaintEvent *event) override;//绘制
     void mousePressEvent(QMouseEvent *event) override;//后期鼠标点击事件
     void mouseMoveEvent(QMouseEvent *event) override;//鼠标移动事件
