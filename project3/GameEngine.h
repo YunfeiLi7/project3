@@ -10,7 +10,7 @@
 #include <QVector>
 #include <QString>
 #include "map.h"
-
+#include "Tower.h"
 
 
 class GameEngine : public QObject
@@ -29,6 +29,12 @@ public:
 
     // 地图访问
     const Map& getMap() const { return m_map; }
+//关于塔的放置逻辑
+    int getPlayerMoney() const { return m_playerMoney; }
+    const QVector<Tower*>& getTowers() const { return m_towers; }
+    bool canPlaceTower(Tower::Type type, int row, int col) const;
+    bool deployTower(int row, int col, Tower::Type type);
+    Tower::CardInfo getTowerStaticData(Tower::Type type) const;
 
     signals:
 
@@ -42,6 +48,8 @@ private:
     QTimer m_gameTimer; // 游戏循环计时器
     bool m_gameOver;    // 游戏是否结束
     bool m_isPaused;    // 游戏是否暂停
+    int m_playerMoney;          // 玩家金钱
+    QVector<Tower*> m_towers;   // 存储已放置的塔
 };
 
 #endif // GAMEENGINE_H

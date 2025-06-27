@@ -5,13 +5,9 @@
 #ifndef TOWER_H
 #define TOWER_H
 
-#include <QString>
 #include <QPixmap>
-#include <QPoint>
-#include <QDebug>
-#include <QVector>
-class Bullet;
-class Enemy;
+#include <QString>
+
 
 class Tower {
 public:
@@ -21,36 +17,40 @@ public:
         RANGED
     };
 
-
+//绘制上层塔的卡片
     struct CardInfo {
         Type type = Type::NONE;
         QString name;
         QPixmap cardImg;
         QPixmap towerImg;
         int cost = 0;
-    };//绘制上方塔的卡片样式
+    };
 
+    // 构造函数，需要位置信息
+    Tower(int row, int col);
+    virtual ~Tower() = default;
 
-    Tower(Type type, int r, int c, int startHealth = 100);
-    virtual ~Tower() = default;//虚函数的形式给出析构函数，方便后期析构
-
-
-    Type getType() const { return m_type; }
+    // 获取位置和图像
     int getRow() const { return m_row; }
     int getCol() const { return m_col; }
     const QPixmap& getImage() const { return m_image; }
-    int getHealth() const { return m_health; }
-    void takeDamage(int damage) { m_health -= damage; if (m_health < 0) m_health = 0; } // 示例：受伤//近战塔才会受伤
-    bool isDestroyed() const { return m_health <= 0; }
 
 protected:
-    Type m_type;
-    int m_row;
-    int m_col;
-    QPixmap m_image;
-    int m_health;
+    int m_row;      // 塔所在的行
+    int m_col;      // 塔所在的列
+    QPixmap m_image; // 塔的图像
 };
 
+// 近战塔
+class MeleeTower : public Tower {
+public:
+    MeleeTower(int row, int col);
+};
 
+// 远程塔
+class RangedTower : public Tower {
+public:
+    RangedTower(int row, int col);
+};
 
 #endif // TOWER_H
